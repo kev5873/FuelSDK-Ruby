@@ -244,22 +244,22 @@ module FuelSDK
 		def soap_cud action, object_type, properties, upsert=nil
 			# get a list of attributes so we can seperate
 			# them from standard object properties
-			#type_attrs = soap_describe(object_type).editable
+			type_attrs = soap_describe(object_type).editable
 
-			#
-			#   properties = [properties] unless properties.kind_of? Array
-			#   properties.each do |p|
-			#     formated_attrs = []
-			#     p.each do |k, v|
-			#       if type_attrs.include? k
-			#         p.delete k
-			#         attrs = FuelSDK.format_name_value_pairs k => v
-			#         formated_attrs.concat attrs
-			#       end
-			#     end
-			#     (p['Attributes'] ||= []).concat formated_attrs unless formated_attrs.empty?
-			#   end
-			#
+			
+			properties = [properties] unless properties.kind_of? Array
+			properties.each do |p|
+			  formated_attrs = []
+			  p.each do |k, v|
+			    if type_attrs.include? k
+			      p.delete k
+			      attrs = FuelSDK.format_name_value_pairs k => v
+			      formated_attrs.concat attrs
+			    end
+			  end
+			  (p['Attributes'] ||= []).concat formated_attrs unless formated_attrs.empty?
+			end
+			
 
 			message = {
 				'Objects' => properties,
