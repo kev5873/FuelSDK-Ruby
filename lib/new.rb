@@ -1176,20 +1176,14 @@ module FuelSDK
   end
 
   class ET_TriggeredSend < ET_CUDSupport
-    attr_accessor :subscribers
+    attr_accessor :subscribers, :attributes
     def initialize
       super
       @obj = 'TriggeredSendDefinition'
     end
 
     def send
-      force = [
-        {"Name" => "channel_url",  "Value" => "test"},
-        {"Name" => "channel_name", "Value" => "test"},
-        {"Name" => "stream_name",  "Value" => "test"},
-        {"Name" => "stream_hash",  "Value" => "test"}
-      ]
-      @tscall = {"TriggeredSendDefinition" => @props, "Subscribers" => @subscribers, "Attributes" => force}
+      @tscall = {"TriggeredSendDefinition" => @props, "Subscribers" => @subscribers, "Attributes" => @attributes}
       ET_Post.new(@authStub, "TriggeredSend", @tscall)
     end
   end
